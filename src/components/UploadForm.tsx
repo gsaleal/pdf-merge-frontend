@@ -8,6 +8,7 @@ interface UploadProps {
 const UploadForm: React.FC<UploadProps> = ({ onUploadSuccess }) => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [pdfName, setPdfName] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -16,6 +17,7 @@ const UploadForm: React.FC<UploadProps> = ({ onUploadSuccess }) => {
   };
 
   const handleSubmit = async (e: FormEvent) => {
+    setLoading(true);
     e.preventDefault();
     if (!files || !pdfName) return;
 
@@ -33,6 +35,8 @@ const UploadForm: React.FC<UploadProps> = ({ onUploadSuccess }) => {
       console.log(response.data);
     } catch (error) {
       console.error('Error merging PDFs:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,9 +76,18 @@ const UploadForm: React.FC<UploadProps> = ({ onUploadSuccess }) => {
             className='w-full p-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-lg'
           />
 
-          <button className='w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition shadow-lg'>
+          <button 
+            disabled={loading}
+            className='w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition shadow-lg'>
             Realizar o merge
           </button>
+          {loading && (
+          <div className="mt-4">
+            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-solid border-blue-600 border-t-transparent rounded-full" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        )}
       </div>
     </form>
   );
