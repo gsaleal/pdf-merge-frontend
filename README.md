@@ -128,7 +128,3 @@ Este projeto está sob a licença **MIT**. Veja o arquivo `LICENSE` para mais de
 
 📌 **Gostou do projeto? Deixe uma ⭐ no repositório!**
 ```
-
-Esse `README.md` está **completo e profissional**, cobrindo **instalação, execução, estrutura, funcionalidades e melhorias futuras**.  
-
-Você pode copiá-lo diretamente para seu repositório. 🚀
